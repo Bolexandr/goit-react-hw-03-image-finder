@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
 import { Overlay, ModalDiv } from './Modal.styled';
@@ -16,5 +17,11 @@ const Modal = ({ bigPhotoUrl, visability, modalClose }) => {
       modalRoot
     )
   );
+};
+
+Modal.propTypes = {
+  bigPhotoUrl: PropTypes.string,
+  modalClose: PropTypes.func,
+  visability: PropTypes.bool,
 };
 export default Modal;

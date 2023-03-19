@@ -22,8 +22,7 @@ async function pixabeyReq(setings) {
   const randomPhoto = await axios.get(
     `${BASE_URL}?key=${key}&q=${q}&image_type=${image_type}&orientation=${orientation}&page=${page}&per_page=${per_page}`
   );
-  // console.log(finSettingsTorequest);
-  console.log(randomPhoto);
+
   return randomPhoto;
 }
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { GaleriItemLi, GalaeryItemImg } from './ImageGaleryItem.styled';
 import Modal from 'components/Modal';
 import { Component } from 'react';
@@ -44,4 +45,9 @@ class ImageGaleryItem extends Component {
     );
   }
 }
+
+ImageGaleryItem.propTypes = {
+  bigPhotoUrl: PropTypes.string,
+  url: PropTypes.string,
+};
 export default ImageGaleryItem;

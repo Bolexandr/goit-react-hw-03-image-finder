@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+import { animateScroll } from 'react-scroll';
+import PropTypes from 'prop-types';
 
 import pixabeyReq from 'PixabeyApis';
 import { ImageGalleryUl } from './ImageGallery.styled';
@@ -10,9 +12,13 @@ import Loader from 'components/Loader';
 class ImageGallery extends Component {
   state = { photos: [], loaderVisible: false, loadMoreWisible: false };
 
+  scrollToBottom = () => {
+    animateScroll.scrollToBottom();
+  };
+
   async componentDidUpdate(prevProps) {
     const { searchRequest, Page } = prevProps;
-    const { props, state } = this;
+    const { props, state, scrollToBottom } = this;
 
     if (Page !== props.Page || searchRequest !== props.searchRequest) {
       if (props.Page === 1) {
@@ -33,6 +39,7 @@ class ImageGallery extends Component {
 
           if (photosArr.data.totalHits > 12) {
             this.setState({ loadMoreWisible: true });
+            scrollToBottom();
           }
 
           if (photosArr.data.totalHits === state.photos.length) {
@@ -52,15 +59,12 @@ class ImageGallery extends Component {
               { autoClose: 2800 }
             );
           }
-          // console.log(photosArr.data);
         }
-        console.log(props.searchRequest.length);
       } catch (error) {
         toast.error(
           'Трапилась халепа ,ми вже працюємо над її виправленням, спробуйте перезавантажити сторінку та повторити запит. ,',
           { autoClose: 3500 }
         );
-        console.log('in cath', error);
       } finally {
         this.setState(() => {
           return {
@@ -91,6 +95,11 @@ class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  onLoadMoreClick: PropTypes.func,
+  searchRequest: PropTypes.string,
+};
 export default ImageGallery;
 
 // async componentDidUpdate(prevProps, prevState) {
